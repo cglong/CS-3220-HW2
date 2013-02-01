@@ -47,7 +47,11 @@ module ChristmasLight(LEDG, LEDR, CLOCK_50, KEY);
 		if (state == 2) begin
 			greenValues <= ledValues;
 			redValues <= ledValues;
-		end	
+		end
+		
+		if (!KEY[0])
+			if (TotalCnt <= 32'd250000000)
+				TotalCnt = TotalCnt + 32'd12500000;
 	end
 	
 	assign LEDR = redValues;
