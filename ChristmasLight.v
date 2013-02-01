@@ -54,6 +54,7 @@ module ChristmasLight(LEDG, LEDR, CLOCK_50, KEY);
 		if (block == 0) begin
 			if (!KEY[0]) begin
 				if (TotalCnt < 32'd250000000) begin
+					Cnt <= 0;
 					TotalCnt <= TotalCnt + 32'd12500000;
 				end
 				block <= 1;
