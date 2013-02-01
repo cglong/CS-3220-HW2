@@ -1,14 +1,14 @@
 module ChristmasLight(LEDG, LEDR, CLOCK_50, KEY);
 	input CLOCK_50;
-	output [2:0] KEY;
+	input [2:0] KEY;
 	output [7:0] LEDG;
-	output [7:0] LEDR;
+	output [9:0] LEDR;
 	
 	reg [31:0] Cnt;
 	reg [31:0] TotalCnt;
 	reg [7:0] greenValues;
-	reg [7:0] redValues;
-	reg [7:0] ledValues;
+	reg [9:0] redValues;
+	reg [9:0] ledValues;
 	reg [15:0] ledCounter;
 	reg [15:0] state;
 	
@@ -20,11 +20,10 @@ module ChristmasLight(LEDG, LEDR, CLOCK_50, KEY);
 	initial ledCounter = 1;
 	initial state = 0;
 	
-	
 	always @(posedge CLOCK_50) begin
 		Cnt <= Cnt + 32'd1;
 		if (Cnt == TotalCnt) begin
-			ledValues <= ledValues ^ -8'd1;
+			ledValues <= ledValues ^ -10'd1;
 			Cnt <= 32'd0;
 			ledCounter <= ledCounter + 1;
 		end
@@ -49,16 +48,20 @@ module ChristmasLight(LEDG, LEDR, CLOCK_50, KEY);
 			redValues <= ledValues;
 		end
 		
-		if (!KEY[0])
+		if (!KEY[0]) begin
 			if (TotalCnt <= 32'd250000000)
 				TotalCnt <= TotalCnt + 32'd12500000;
-		
-		if (!KEY[1])
+		end
+	
+		if (!KEY[1]) begin
 			if (TotalCnt >= 32'd12500000)
 				TotalCnt <= TotalCnt - 32'd12500000;
-		
-		if (!KEY[2])
+		end
+ 		
+		if (!KEY[2]) begin
 			TotalCnt <= 32'd25000000;
+		end
+
 	end
 	
 	assign LEDR = redValues;
