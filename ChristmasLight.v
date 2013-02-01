@@ -52,6 +52,10 @@ module ChristmasLight(LEDG, LEDR, CLOCK_50, KEY);
 		if (!KEY[0])
 			if (TotalCnt <= 32'd250000000)
 				TotalCnt = TotalCnt + 32'd12500000;
+		
+		if (!KEY[1])
+			if (TotalCnt >= 32'd12500000)
+				TotalCnt = TotalCnt - 32'd12500000;
 	end
 	
 	assign LEDR = redValues;
