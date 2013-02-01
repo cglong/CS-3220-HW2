@@ -5,6 +5,7 @@ module ChristmasLight(LEDG, LEDR, CLOCK_50, KEY);
 	output [7:0] LEDR;
 	
 	reg [31:0] Cnt;
+	reg [31:0] TotalCnt;
 	reg [7:0] greenValues;
 	reg [7:0] redValues;
 	reg [7:0] ledValues;
@@ -12,6 +13,7 @@ module ChristmasLight(LEDG, LEDR, CLOCK_50, KEY);
 	reg [15:0] state;
 	
 	initial Cnt = 0;
+	initial TotalCnt = 32'd25000000;
 	initial greenValues = 0;
 	initial redValues = 0; 
 	initial ledValues = 0;
@@ -21,7 +23,7 @@ module ChristmasLight(LEDG, LEDR, CLOCK_50, KEY);
 	
 	always @(posedge CLOCK_50) begin
 		Cnt <= Cnt + 32'd1;
-		if (Cnt == 32'd25000000) begin
+		if (Cnt == TotalCnt) begin
 			ledValues <= ledValues ^ -8'd1;
 			Cnt <= 32'd0;
 			ledCounter <= ledCounter + 1;
