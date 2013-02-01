@@ -3,18 +3,21 @@ module ChristmasLight(LEDG, LEDR, CLOCK_50, KEY);
 	output [2:0] KEY;
 	output [7:0] LEDG;
 	output [7:0] LEDR;
+	
 	reg [31:0] Cnt;
-	initial Cnt = 0;
 	reg [7:0] greenValues;
 	reg [7:0] redValues;
 	reg [7:0] ledValues;
+	reg [15:0] ledCounter;
+	reg [15:0] state;
+	
+	initial Cnt = 0;
 	initial greenValues = 0;
 	initial redValues = 0; 
 	initial ledValues = 0;
-	reg [15:0] ledCounter;
 	initial ledCounter = 1;
-	reg [15:0] state;
 	initial state = 0;
+	
 	
 	always @(posedge CLOCK_50) begin
 		Cnt <= Cnt + 32'd1;
